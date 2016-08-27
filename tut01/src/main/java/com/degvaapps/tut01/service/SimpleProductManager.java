@@ -2,28 +2,36 @@ package com.degvaapps.tut01.service;
 
 import java.util.List;
 
-import com.degvaapps.tut01.domain.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import com.degvaapps.tut01.domain.Product;
+import com.degvaapps.tut01.repository.ProductDao;
+
+@Component
 public class SimpleProductManager implements ProductManager {
 	private static final long serialVersionUID = 1L;
-	
-	private List<Product> products;
+
+    @Autowired
+    private ProductDao productDao;
 	
 	public List<Product> getProducts() {
-		return products;
+		return productDao.getProductList();
 	}
 	
 	public void increasePrice(int percentage) {
+        List<Product> products = productDao.getProductList();
         if (products != null) {
             for (Product product : products) {
                 double newPrice = product.getPrice().doubleValue() * 
                                     (100 + percentage)/100;
                 product.setPrice(newPrice);
+                productDao.saveProduct(product);
             }
-        }  
+        } 
 	}
 	
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
+    }
 }
