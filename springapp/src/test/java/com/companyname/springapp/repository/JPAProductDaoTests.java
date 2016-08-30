@@ -1,20 +1,22 @@
-package com.degvaapps.tut01.repository;
-
-import static org.junit.Assert.*;
+package com.companyname.springapp.repository;
 
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.degvaapps.tut01.domain.Product;
+import com.companyname.springapp.domain.Product;
+
 
 public class JPAProductDaoTests {
-	private ApplicationContext context;
-	private ProductDao productDao;
-	
+
+    private ApplicationContext context;
+    private ProductDao productDao;
+
     @Before
     public void setUp() throws Exception {
         context = new ClassPathXmlApplicationContext("classpath:test-context.xml");
@@ -24,7 +26,7 @@ public class JPAProductDaoTests {
     @Test
     public void testGetProductList() {
         List<Product> products = productDao.getProductList();
-        assertNotEquals(products.size(), 3, 0);	   
+        assertEquals(products.size(), 3, 0);	   
     }
 
     @Test
